@@ -182,7 +182,7 @@ namespace webapi.Controllers
 
                 await HttpContext.SignInAsync(cp, properties);
 
-                return Ok(found);
+                return StatusCode(200,found);
 
             }
             catch (Exception ex)

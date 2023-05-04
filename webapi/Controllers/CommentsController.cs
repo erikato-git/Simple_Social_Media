@@ -61,7 +61,7 @@ namespace webapi.Controllers
 
         //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("/update_comment/{id}")]
-        public async Task<IActionResult> UpdateComment(Guid id, UpdateCommentDTO updateCommentDto)
+        public async Task<IActionResult> UpdateComment(Guid id, CommentUpdateDTO updateCommentDto)
         {
             try
             {

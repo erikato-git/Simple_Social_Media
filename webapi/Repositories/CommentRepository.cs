@@ -64,7 +64,7 @@ namespace webapi.Repositories
 
             var comment = _mapper.Map<Comment>(commentDto);
             comment.UserId= userDto.UserId;
-            comment.PostId = new Guid(commentDto.PostId);
+            comment.PostId = commentDto.PostId;
 
             var post = await _dataContext.Posts.FindAsync(comment.PostId);
             comment.Post = post;
@@ -96,7 +96,7 @@ namespace webapi.Repositories
         }
 
 
-        public async Task<Comment?> UpdateComment(Guid id, UpdateCommentDTO commentDto)
+        public async Task<Comment?> UpdateComment(Guid id, CommentUpdateDTO commentDto)
         {
             if(String.IsNullOrEmpty(id.ToString()) || commentDto == null)
             {

@@ -14,7 +14,7 @@ namespace webapi.Utils
             CreateMap<UserDTO, User>();
             CreateMap<PostUpdateDTO, Post>();
             CreateMap<CreatePostDTO, Post>();
-            CreateMap<UpdateCommentDTO, Comment>();
+            CreateMap<CommentUpdateDTO, Comment>();
             CreateMap<CommentCreateDTO, Comment>();
 
         }

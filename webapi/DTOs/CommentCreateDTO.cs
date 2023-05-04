@@ -8,7 +8,7 @@ namespace webapi.DTOs
         public string Content { get; set; }
 
         [Required]
-        public string PostId { get; set; }
+        public Guid PostId { get; set; }
 
     }
 }
