@@ -16,35 +16,6 @@ namespace webapi_test.utils
 
             var fakeDb = new DataContext(options);
 
-            // --- WeatherForecasts ---
-            
-            if (await fakeDb.WeatherForecasts.CountAsync() == 0)
-            {
-                var tmpWeatherForecasts = new List<WeatherForecast>()
-                {
-                    new WeatherForecast()
-                    {
-                        Id = new Guid(),
-                        Date = new DateTime().AddDays(0),
-                        TemperatureC = 20,
-                        Summary = "Weatherforecast 1"
-                    },
-                    new WeatherForecast()
-                    {
-                        Id = new Guid(),
-                        Date = new DateTime().AddDays(1),
-                        TemperatureC = 25,
-                        Summary = "Weatherforecast 2"
-                    }
-
-                };
-
-                foreach (var i in tmpWeatherForecasts)
-                {
-                    fakeDb.WeatherForecasts.Add(i);
-                }
-            }
-
 
             // --- Users ---
 

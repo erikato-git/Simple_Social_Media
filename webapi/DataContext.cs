@@ -8,7 +8,6 @@ public class DataContext: DbContext
     {
     }
 
-    public DbSet<WeatherForecast> WeatherForecasts { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Post> Posts { get; set; }
     public DbSet<Comment> Comments { get; set; }
@@ -16,17 +15,7 @@ public class DataContext: DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        var WeatherForecastId1 = "AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAA1";
-
-        modelBuilder.Entity<WeatherForecast>().HasData(
-            new WeatherForecast{
-                Id = Guid.Parse(WeatherForecastId1),
-                TemperatureC = 25,
-                Summary = "Test-object"
-            }
-        );
-
-                // Relations
+        // Relations
 
         modelBuilder.Entity<User>(entity =>
         {

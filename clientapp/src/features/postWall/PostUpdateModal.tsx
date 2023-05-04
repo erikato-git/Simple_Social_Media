@@ -8,12 +8,11 @@ import userAgent from '../../utils/UserAgent';
 
 
 interface Props{
-  RefreshPage: () => void,
   setLoading: (bool: boolean) => void
 }
 
 
-export default observer (function PostUpdateModal({RefreshPage, setLoading} : Props) {
+export default observer (function PostUpdateModal({setLoading} : Props) {
     const { postStore } = useStore(); 
     const [content, setContent] = useState(postStore.selectedPost?.content);
     const [imageUrl, setImageUrl] = useState<string | undefined>(postStore.selectedPost?.image);
@@ -53,7 +52,6 @@ export default observer (function PostUpdateModal({RefreshPage, setLoading} : Pr
 
         postStore.selectedPost = undefined
         setLoading(true)
-        RefreshPage()
       }
   
 

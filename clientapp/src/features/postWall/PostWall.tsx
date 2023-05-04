@@ -163,14 +163,14 @@ export default observer (function PostWall() {
                     {/* PostWall-sidebar */}
                     <div className='py-5 flex flex-row'>
                       <div className='w-1/5'>
-                        <nav className="flex flex-col w-1/5 text-left space-y-12 pt-10">
-                            <Link to="/Chats" className="text-black hover:text-darkGrayishBlue">Chats</Link>
-                            <Link to="/Pictures" className="text-black hover:text-darkGrayishBlue">Pictures</Link>
-                            <Link to="/Followers" className="text-black hover:text-darkGrayishBlue">Followers</Link>
+                        <nav className="flex flex-col text-left space-y-12 pt-7">
+                            <Link to="/Home" className="text-black hover:text-darkGrayishBlue">Chats (pending feature)</Link>
+                            <Link to="/Home" className="text-black hover:text-darkGrayishBlue">Pictures (pending feature)</Link>
+                            <Link to="/Home" className="text-black hover:text-darkGrayishBlue">Followers (pending feature)</Link>
                         </nav>
                       </div>
 
-                      <div className='w-3/5 flex flex-col text-center mx-auto'>
+                      <div className='w-3/5 pr-10 pt-2 flex flex-col text-center mx-auto'>
 
                         {/* Post-form */}
                           <div className='flex flex-row mx-auto p-5 bg-white space-x-3 border rounded sm:w-full md:w-auto'>
@@ -304,12 +304,12 @@ export default observer (function PostWall() {
                                   )
                                 )
                                 }
-                                {/* {
+                                {
                                   postStore.selectedPost ? 
-                                  <PostUpdateModal RefreshPage={RefreshPage} setLoading={setLoading} />
+                                  <PostUpdateModal setLoading={setLoading} />
                                   :
                                   <div></div>
-                                } */}
+                                }
                             </ul>
 
                             :

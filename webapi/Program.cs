@@ -60,7 +60,6 @@ builder.Services.AddDbContext<DataContext>(options =>
     }
 });
 
-builder.Services.AddScoped<IWeatherForecast, WeatherForecastRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
