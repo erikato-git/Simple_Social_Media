@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Simple_Social_Media_App.Controllers.DTOs;
-using Simple_Social_Media_App.DataAccess.Model;
+using webapi.DTOs;
+using webapi.Model;
 
-namespace Simple_Social_Media_App.Repositories.Interfaces
+namespace webapi.Repositories.Interfaces
 {
     public interface IUserRepository
     {

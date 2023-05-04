@@ -3,16 +3,16 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Simple_Social_Media_App.Controllers.DTOs;
-using Simple_Social_Media_App.DataAccess;
-using Simple_Social_Media_App.DataAccess.Model;
-using Simple_Social_Media_App.Repositories.Interfaces;
+using webapi.DTOs;
+using webapi;
+using webapi.Model;
+using webapi.Repositories.Interfaces;
 using System.ComponentModel;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Simple_Social_Media_App.Repositories
+namespace webapi.Repositories
 {
     public class UserRepository : IUserRepository
     {

@@ -1,6 +1,6 @@
-﻿using Simple_Social_Media_App.DataAccess.Model;
+﻿using webapi.Model;
 
-namespace Simple_Social_Media_App.Controllers.DTOs
+namespace webapi.DTOs
 {
     public class CreatePostDTO
     {

@@ -1,7 +1,7 @@
-﻿using Simple_Social_Media_App.DataAccess.Model;
+﻿using webapi.Model;
 using System.ComponentModel.DataAnnotations;
 
-namespace Simple_Social_Media_App.Controllers.DTOs
+namespace webapi.DTOs
 {
     public class CommentCreateDTO
     {

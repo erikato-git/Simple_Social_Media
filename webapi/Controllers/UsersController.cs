@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Simple_Social_Media_App.Controllers.DTOs;
-using Simple_Social_Media_App.DataAccess.Model;
-using Simple_Social_Media_App.Repositories.Interfaces;
+using webapi.DTOs;
+using webapi.Model;
+using webapi.Repositories.Interfaces;
 using System.Linq;
 using System.Security.Claims;
 
-namespace Simple_Social_Media_App.Controllers
+namespace webapi.Controllers
 {
     [ApiController]
     public class UsersController : ControllerBase

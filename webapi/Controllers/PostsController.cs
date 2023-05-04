@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Simple_Social_Media_App.Controllers.DTOs;
-using Simple_Social_Media_App.DataAccess.Model;
-using Simple_Social_Media_App.Repositories.Interfaces;
+using webapi.DTOs;
+using webapi.Model;
+using webapi.Repositories.Interfaces;
 using System.Security.Claims;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Simple_Social_Media_App.Controllers
+namespace webapi.Controllers
 {
     [ApiController]
     public class PostsController : ControllerBase

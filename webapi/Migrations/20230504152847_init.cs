@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace Simple_Social_Media_App.Migrations
+namespace webapi.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -29,6 +29,20 @@ namespace Simple_Social_Media_App.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WeatherForecasts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TemperatureC = table.Column<int>(type: "int", nullable: false),
+                    Summary = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WeatherForecasts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -84,19 +98,24 @@ namespace Simple_Social_Media_App.Migrations
                 columns: new[] { "UserId", "DateOfBirth", "Description", "Email", "Full_Name", "Password", "Profile_Picture", "Salt" },
                 values: new object[,]
                 {
-                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa111"), new DateTime(2023, 3, 26, 21, 33, 13, 459, DateTimeKind.Utc).AddTicks(1910), null, "user1@mail.com", "user 1", "123", null, 0 },
-                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa112"), new DateTime(2023, 3, 26, 21, 33, 13, 459, DateTimeKind.Utc).AddTicks(1933), null, "user2@mail.com", "user 2", "123", null, 0 },
-                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa113"), new DateTime(2023, 3, 26, 21, 33, 13, 459, DateTimeKind.Utc).AddTicks(1936), null, "user3@mail.com", "user 3", "123", null, 0 }
+                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa111"), new DateTime(2023, 5, 4, 15, 28, 47, 34, DateTimeKind.Utc).AddTicks(9511), null, "user1@mail.com", "user 1", "123", null, 0 },
+                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa112"), new DateTime(2023, 5, 4, 15, 28, 47, 34, DateTimeKind.Utc).AddTicks(9541), null, "user2@mail.com", "user 2", "123", null, 0 },
+                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa113"), new DateTime(2023, 5, 4, 15, 28, 47, 34, DateTimeKind.Utc).AddTicks(9546), null, "user3@mail.com", "user 3", "123", null, 0 }
                 });
+
+            migrationBuilder.InsertData(
+                table: "WeatherForecasts",
+                columns: new[] { "Id", "Date", "Summary", "TemperatureC" },
+                values: new object[] { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Test-object", 25 });
 
             migrationBuilder.InsertData(
                 table: "Posts",
                 columns: new[] { "PostId", "Content", "CreatedAt", "Image", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa211"), "user 1", new DateTime(2023, 3, 26, 21, 33, 13, 459, DateTimeKind.Utc).AddTicks(2135), null, new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa111") },
-                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa212"), "user 2", new DateTime(2023, 3, 26, 21, 33, 13, 459, DateTimeKind.Utc).AddTicks(2140), null, new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa112") },
-                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa213"), "user 3", new DateTime(2023, 3, 26, 21, 33, 13, 459, DateTimeKind.Utc).AddTicks(2143), null, new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa113") }
+                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa211"), "user 1", new DateTime(2023, 5, 4, 15, 28, 47, 34, DateTimeKind.Utc).AddTicks(9592), null, new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa111") },
+                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa212"), "user 2", new DateTime(2023, 5, 4, 15, 28, 47, 34, DateTimeKind.Utc).AddTicks(9599), null, new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa112") },
+                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa213"), "user 3", new DateTime(2023, 5, 4, 15, 28, 47, 34, DateTimeKind.Utc).AddTicks(9603), null, new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa113") }
                 });
 
             migrationBuilder.InsertData(
@@ -104,9 +123,9 @@ namespace Simple_Social_Media_App.Migrations
                 columns: new[] { "CommentId", "Content", "CreatedAt", "PostId", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa311"), "comment 1", new DateTime(2023, 3, 26, 21, 33, 13, 459, DateTimeKind.Utc).AddTicks(2160), new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa211"), new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa111") },
-                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa312"), "comment 2", new DateTime(2023, 3, 26, 21, 33, 13, 459, DateTimeKind.Utc).AddTicks(2166), new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa212"), new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa112") },
-                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa313"), "comment 3", new DateTime(2023, 3, 26, 21, 33, 13, 459, DateTimeKind.Utc).AddTicks(2170), new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa211"), new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa111") }
+                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa311"), "comment 1", new DateTime(2023, 5, 4, 15, 28, 47, 34, DateTimeKind.Utc).AddTicks(9636), new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa211"), new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa111") },
+                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa312"), "comment 2", new DateTime(2023, 5, 4, 15, 28, 47, 34, DateTimeKind.Utc).AddTicks(9643), new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa212"), new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa112") },
+                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa313"), "comment 3", new DateTime(2023, 5, 4, 15, 28, 47, 34, DateTimeKind.Utc).AddTicks(9648), new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa211"), new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa111") }
                 });
 
             migrationBuilder.CreateIndex(
@@ -130,6 +149,9 @@ namespace Simple_Social_Media_App.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Comments");
+
+            migrationBuilder.DropTable(
+                name: "WeatherForecasts");
 
             migrationBuilder.DropTable(
                 name: "Posts");

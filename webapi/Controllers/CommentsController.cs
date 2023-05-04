@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Simple_Social_Media_App.Controllers.DTOs;
-using Simple_Social_Media_App.DataAccess.Model;
-using Simple_Social_Media_App.Repositories;
-using Simple_Social_Media_App.Repositories.Interfaces;
 using System.Security.Claims;
+using webapi.DTOs;
+using webapi.Model;
+using webapi.Repositories.Interfaces;
 
-namespace Simple_Social_Media_App.Controllers
+namespace webapi.Controllers
 {
     [ApiController]
     public class CommentsController : ControllerBase

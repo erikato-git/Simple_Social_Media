@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Simple_Social_Media_App.Controllers.DTOs
+namespace webapi.DTOs
 {
     public class UserUpdateDTO
     {

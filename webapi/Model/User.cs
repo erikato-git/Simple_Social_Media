@@ -1,14 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Simple_Social_Media_App.DataAccess.Model;
 
-namespace Simple_Social_Media_App.Controllers.DTOs
+namespace webapi.Model
 {
-    public class UserDTO
+    public class User
     {
         [Key]
         public Guid UserId { get; set; }
         [Required]
         public string Email { get; set; } = string.Empty;
+        [Required]
+        public string Password { get; set; } = string.Empty;
+        public int Salt { get; set; }
         [Required]
         public string Full_Name { get; set; } = string.Empty;
         public string? Profile_Picture { get; set; }
@@ -16,5 +18,6 @@ namespace Simple_Social_Media_App.Controllers.DTOs
         public string? Description { get; set; }
         public ICollection<Post>? Posts { get; set; }
         public ICollection<Comment>? Comments { get; set; }
+
     }
 }

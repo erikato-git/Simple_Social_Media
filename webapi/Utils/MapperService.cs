@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Hosting;
-using Simple_Social_Media_App.Controllers.DTOs;
-using Simple_Social_Media_App.DataAccess.Model;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Xml.Linq;
+using webapi.DTOs;
+using webapi.Model;
 
-namespace Simple_Social_Media_App.Utils
+namespace webapi.Utils
 {
     public class MapperService : Profile
     {

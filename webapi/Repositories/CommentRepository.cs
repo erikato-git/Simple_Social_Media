@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
-using Simple_Social_Media_App.Controllers.DTOs;
-using Simple_Social_Media_App.DataAccess;
-using Simple_Social_Media_App.DataAccess.Model;
-using Simple_Social_Media_App.Repositories.Interfaces;
+using webapi.DTOs;
+using webapi;
+using webapi.Model;
+using webapi.Repositories.Interfaces;
 
-namespace Simple_Social_Media_App.Repositories
+namespace webapi.Repositories
 {
     public class CommentRepository : ICommentRepository
     {

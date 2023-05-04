@@ -4,11 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Simple_Social_Media_App.DataAccess;
 
 #nullable disable
 
-namespace Simple_Social_Media_App.Migrations
+namespace webapi.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -17,12 +16,12 @@ namespace Simple_Social_Media_App.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.4")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Simple_Social_Media_App.DataAccess.Model.Comment", b =>
+            modelBuilder.Entity("webapi.Model.Comment", b =>
                 {
                     b.Property<Guid>("CommentId")
                         .ValueGeneratedOnAdd()
@@ -55,7 +54,7 @@ namespace Simple_Social_Media_App.Migrations
                         {
                             CommentId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa311"),
                             Content = "comment 1",
-                            CreatedAt = new DateTime(2023, 3, 26, 21, 33, 13, 459, DateTimeKind.Utc).AddTicks(2160),
+                            CreatedAt = new DateTime(2023, 5, 4, 15, 28, 47, 34, DateTimeKind.Utc).AddTicks(9636),
                             PostId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa211"),
                             UserId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa111")
                         },
@@ -63,7 +62,7 @@ namespace Simple_Social_Media_App.Migrations
                         {
                             CommentId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa312"),
                             Content = "comment 2",
-                            CreatedAt = new DateTime(2023, 3, 26, 21, 33, 13, 459, DateTimeKind.Utc).AddTicks(2166),
+                            CreatedAt = new DateTime(2023, 5, 4, 15, 28, 47, 34, DateTimeKind.Utc).AddTicks(9643),
                             PostId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa212"),
                             UserId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa112")
                         },
@@ -71,13 +70,13 @@ namespace Simple_Social_Media_App.Migrations
                         {
                             CommentId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa313"),
                             Content = "comment 3",
-                            CreatedAt = new DateTime(2023, 3, 26, 21, 33, 13, 459, DateTimeKind.Utc).AddTicks(2170),
+                            CreatedAt = new DateTime(2023, 5, 4, 15, 28, 47, 34, DateTimeKind.Utc).AddTicks(9648),
                             PostId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa211"),
                             UserId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa111")
                         });
                 });
 
-            modelBuilder.Entity("Simple_Social_Media_App.DataAccess.Model.Post", b =>
+            modelBuilder.Entity("webapi.Model.Post", b =>
                 {
                     b.Property<Guid>("PostId")
                         .ValueGeneratedOnAdd()
@@ -106,26 +105,26 @@ namespace Simple_Social_Media_App.Migrations
                         {
                             PostId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa211"),
                             Content = "user 1",
-                            CreatedAt = new DateTime(2023, 3, 26, 21, 33, 13, 459, DateTimeKind.Utc).AddTicks(2135),
+                            CreatedAt = new DateTime(2023, 5, 4, 15, 28, 47, 34, DateTimeKind.Utc).AddTicks(9592),
                             UserId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa111")
                         },
                         new
                         {
                             PostId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa212"),
                             Content = "user 2",
-                            CreatedAt = new DateTime(2023, 3, 26, 21, 33, 13, 459, DateTimeKind.Utc).AddTicks(2140),
+                            CreatedAt = new DateTime(2023, 5, 4, 15, 28, 47, 34, DateTimeKind.Utc).AddTicks(9599),
                             UserId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa112")
                         },
                         new
                         {
                             PostId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa213"),
                             Content = "user 3",
-                            CreatedAt = new DateTime(2023, 3, 26, 21, 33, 13, 459, DateTimeKind.Utc).AddTicks(2143),
+                            CreatedAt = new DateTime(2023, 5, 4, 15, 28, 47, 34, DateTimeKind.Utc).AddTicks(9603),
                             UserId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa113")
                         });
                 });
 
-            modelBuilder.Entity("Simple_Social_Media_App.DataAccess.Model.User", b =>
+            modelBuilder.Entity("webapi.Model.User", b =>
                 {
                     b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
@@ -163,7 +162,7 @@ namespace Simple_Social_Media_App.Migrations
                         new
                         {
                             UserId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa111"),
-                            DateOfBirth = new DateTime(2023, 3, 26, 21, 33, 13, 459, DateTimeKind.Utc).AddTicks(1910),
+                            DateOfBirth = new DateTime(2023, 5, 4, 15, 28, 47, 34, DateTimeKind.Utc).AddTicks(9511),
                             Email = "user1@mail.com",
                             Full_Name = "user 1",
                             Password = "123",
@@ -172,7 +171,7 @@ namespace Simple_Social_Media_App.Migrations
                         new
                         {
                             UserId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa112"),
-                            DateOfBirth = new DateTime(2023, 3, 26, 21, 33, 13, 459, DateTimeKind.Utc).AddTicks(1933),
+                            DateOfBirth = new DateTime(2023, 5, 4, 15, 28, 47, 34, DateTimeKind.Utc).AddTicks(9541),
                             Email = "user2@mail.com",
                             Full_Name = "user 2",
                             Password = "123",
@@ -181,7 +180,7 @@ namespace Simple_Social_Media_App.Migrations
                         new
                         {
                             UserId = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaa113"),
-                            DateOfBirth = new DateTime(2023, 3, 26, 21, 33, 13, 459, DateTimeKind.Utc).AddTicks(1936),
+                            DateOfBirth = new DateTime(2023, 5, 4, 15, 28, 47, 34, DateTimeKind.Utc).AddTicks(9546),
                             Email = "user3@mail.com",
                             Full_Name = "user 3",
                             Password = "123",
@@ -189,15 +188,44 @@ namespace Simple_Social_Media_App.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Simple_Social_Media_App.DataAccess.Model.Comment", b =>
+            modelBuilder.Entity("webapi.WeatherForecast", b =>
                 {
-                    b.HasOne("Simple_Social_Media_App.DataAccess.Model.Post", "Post")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Summary")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TemperatureC")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WeatherForecasts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1"),
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Summary = "Test-object",
+                            TemperatureC = 25
+                        });
+                });
+
+            modelBuilder.Entity("webapi.Model.Comment", b =>
+                {
+                    b.HasOne("webapi.Model.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Simple_Social_Media_App.DataAccess.Model.User", "User")
+                    b.HasOne("webapi.Model.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.SetNull);
@@ -207,9 +235,9 @@ namespace Simple_Social_Media_App.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Simple_Social_Media_App.DataAccess.Model.Post", b =>
+            modelBuilder.Entity("webapi.Model.Post", b =>
                 {
-                    b.HasOne("Simple_Social_Media_App.DataAccess.Model.User", "User")
+                    b.HasOne("webapi.Model.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.SetNull);
@@ -217,12 +245,12 @@ namespace Simple_Social_Media_App.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Simple_Social_Media_App.DataAccess.Model.Post", b =>
+            modelBuilder.Entity("webapi.Model.Post", b =>
                 {
                     b.Navigation("Comments");
                 });
 
-            modelBuilder.Entity("Simple_Social_Media_App.DataAccess.Model.User", b =>
+            modelBuilder.Entity("webapi.Model.User", b =>
                 {
                     b.Navigation("Comments");
 

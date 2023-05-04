@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace Simple_Social_Media_App.Controllers.DTOs
+namespace webapi.DTOs
 {
     public class PasswordChangeDTO
     {
