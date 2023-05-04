@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "src/reportWebVitals.ts", "test/App.test.tsx"  ]
 }
