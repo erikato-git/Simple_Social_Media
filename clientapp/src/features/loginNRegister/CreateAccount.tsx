@@ -68,7 +68,7 @@ export default observer(function CreateAccount() {
                                 })
                                 .catch((e) => {
                                   console.log(e);
-                                  alert("Something went wrong")
+                                  alert("Email is already taken")
                                 })
         
         if(emailFree){
