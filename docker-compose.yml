@@ -10,7 +10,7 @@ services:
    build:
      context: .
    ports:
-     - 5165:80
+     - 5029:80
    environment:
      - Docker_Env=Docker
    depends_on:
