@@ -66,10 +66,6 @@ export default observer(function CreateAccount() {
                                   console.log(e);
                                   return e.data
                                 })
-                                .catch((e) => {
-                                  console.log(e);
-                                  alert("Email is already taken")
-                                })
         
         if(emailFree){
           await UserRequests.create(data)
@@ -87,6 +83,9 @@ export default observer(function CreateAccount() {
               alert("Couldn't logged in")
             })
           })
+        }
+        else{
+          alert("Email is already taken")
         }
     }
 
