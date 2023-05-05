@@ -126,12 +126,13 @@ else
         context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
         context.Response.Headers.Add("Referrer-Policy", "no-referrer");
         context.Response.Headers.Add(
-            "Content-Security-Policy-Report-Only", 
+            // "Content-Security-Policy-Report-Only", 
+            "Content-Security-Policy", 
             "default-src 'self'; " + 
             "script-src 'self'; " +
-            "style-src 'self' ; " +
-            "font-src 'self' ; " +
-            "img-src 'self' ; " +
+            "style-src 'self' 'https://fonts.googleapis.com; " +
+            "font-src 'self' https://fonts.gstatic.com; " +
+            "img-src 'self' data:; " +
             "frame-src 'self'; "
             );
         
