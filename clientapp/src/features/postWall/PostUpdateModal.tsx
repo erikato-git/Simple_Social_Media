@@ -1,8 +1,6 @@
-import { Agent } from 'http';
 import { observer } from 'mobx-react-lite'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { PostUpdateDTO } from '../../utils/DTOs/PostUpdateDTO';
-import { Post } from '../../utils/models/Post';
 import { useStore } from '../../utils/state_mgmt/Store';
 import userAgent from '../../utils/UserAgent';
 

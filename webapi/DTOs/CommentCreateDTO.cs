@@ -1,5 +1,4 @@
-﻿using webapi.Model;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace webapi.DTOs
 {

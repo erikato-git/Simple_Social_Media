@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using webapi.DTOs;
-using webapi.Model;
+﻿using webapi.DTOs;
 
 namespace webapi.Repositories.Interfaces
 {

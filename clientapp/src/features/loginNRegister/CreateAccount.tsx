@@ -5,9 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from "yup";
 import { UserCreateDTO } from '../../utils/DTOs/UserCreateDTO';
 import { ChangeEvent, useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import { idText } from 'typescript';
 import { useStore } from '../../utils/state_mgmt/Store';
 
 

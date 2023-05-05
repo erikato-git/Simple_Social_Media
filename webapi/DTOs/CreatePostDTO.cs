@@ -1,6 +1,4 @@
-﻿using webapi.Model;
-
-namespace webapi.DTOs
+﻿namespace webapi.DTOs
 {
     public class CreatePostDTO
     {

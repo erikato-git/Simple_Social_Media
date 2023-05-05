@@ -1,7 +1,6 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using webapi;
 using webapi.DTOs;
 using webapi.Model;
 using webapi_test.controllers;

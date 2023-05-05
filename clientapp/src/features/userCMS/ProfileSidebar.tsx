@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react-lite'
-import React, { useState } from 'react'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
-import { boolean } from 'yup'
-import { User } from '../../utils/models/User'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import userAgent from '../../utils/UserAgent'
 
 export default observer (function ProfileSidebar() {

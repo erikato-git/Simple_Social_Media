@@ -11,6 +11,7 @@ using System.Security.Claims;
 namespace webapi.Controllers
 {
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserRepository _userRepository;

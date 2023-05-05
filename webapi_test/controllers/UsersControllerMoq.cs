@@ -1,5 +1,3 @@
-
-
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -7,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using webapi.Controllers;
-using webapi.Model;
 using webapi.Repositories;
 using webapi.Utils;
 using webapi_test.utils;

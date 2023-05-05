@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using webapi.DTOs;
@@ -9,6 +9,7 @@ using webapi.Repositories.Interfaces;
 namespace webapi.Controllers
 {
     [ApiController]
+    [Authorize]
     public class CommentsController : ControllerBase
     {
         private readonly ICommentRepository _commentRepository;

@@ -6,7 +6,6 @@ import { Post } from '../../utils/models/Post';
 import { useStore } from '../../utils/state_mgmt/Store';
 import userAgent from '../../utils/UserAgent';
 import PostUpdateModal from './PostUpdateModal';
-import { CommentCreateDTO } from '../../utils/DTOs/CommentCreateDTO';
 import { CreateCommentHelper, CreateCommentHelperProps, CreatePostsHelper, CreatePostsHelperProps, RefreshAllPostsHelperProps, RefreshPageAllPostsHelper, RemoveCommentHelper, RemoveCommentHelperProps } from './PostWallHelper';
 import React from 'react';
 

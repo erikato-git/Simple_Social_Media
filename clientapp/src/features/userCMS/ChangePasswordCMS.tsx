@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import Navbar from '../../components/Navbar'
 import { PasswordChangeDTO } from '../../utils/DTOs/PasswordChangeDTO'
@@ -9,7 +9,7 @@ import ProfileSidebar from './ProfileSidebar'
 
 export default observer (function ChangePasswordCMS() {
     const { userStore } = useStore();
-    let [currentUser, setCurrentUser] = useState(userStore.loggedInUser)
+    let [currentUser] = useState(userStore.loggedInUser)
     const [loading, setLoading] = useState<boolean>(true)
     const { UserRequests } = userAgent;
     const [password, setPassword] = useState("")

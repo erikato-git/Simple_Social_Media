@@ -1,14 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using webapi.DTOs;
-using webapi;
 using webapi.Model;
 using webapi.Repositories.Interfaces;
-using System.ComponentModel;
-using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 

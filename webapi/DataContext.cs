@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using webapi;
 using webapi.Model;
 
 public class DataContext: DbContext

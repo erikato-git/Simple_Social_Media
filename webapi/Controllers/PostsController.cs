@@ -12,6 +12,7 @@ using System.Security.Claims;
 namespace webapi.Controllers
 {
     [ApiController]
+    [Authorize]
     public class PostsController : ControllerBase
     {
         private readonly IPostRepository _postRepository;

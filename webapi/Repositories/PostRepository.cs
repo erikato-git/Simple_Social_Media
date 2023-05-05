@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using webapi.DTOs;
-using webapi;
 using webapi.Model;
 using webapi.Repositories.Interfaces;
 
