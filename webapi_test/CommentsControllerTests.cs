@@ -73,8 +73,6 @@ namespace webapi_test
         }
 
 
-        // Needs HttpContex setup
-
         [Fact]
         public async Task UpdateCommentOK()
         {
@@ -91,10 +89,8 @@ namespace webapi_test
 
             var comment = db.Comments.First();
 
-            var commentDto = new CommentUpdateDTO()
-            {
-                Content = "New comment"
-            };
+            var commentDto = new CommentUpdateDTO("New comment");
+
 
             // Act
             var result = await controller.UpdateComment(comment.CommentId,commentDto);
@@ -133,6 +129,9 @@ namespace webapi_test
                 PostId = post.PostId
             };
 
+            var commentsPrev = await controller.GetComments(); 
+
+
             // Act
             var result = await controller.CreateComment(commentDto);
 
@@ -144,6 +143,18 @@ namespace webapi_test
 
             Assert.Equal(StatusCodes.Status200OK, response.StatusCode);
             Assert.IsType<Comment>(actual);
+
+            // Check state: comments + 1
+            var comments = await controller.GetComments(); 
+
+            var commentsResponse = Assert.IsType<ObjectResult>(comments.Result);          // casting result to ObjectResult
+            var commentsValue = Assert.IsAssignableFrom<IEnumerable<Comment>>(commentsResponse.Value);
+
+            var commentsPrevResponse = Assert.IsType<ObjectResult>(commentsPrev.Result);          // casting result to ObjectResult
+            var commentsPrevValue = Assert.IsAssignableFrom<IEnumerable<Comment>>(commentsPrevResponse.Value);
+
+            Assert.Equal(commentsPrevValue.Count() + 1, commentsValue.Count());
+
         }
 
 
@@ -163,6 +174,9 @@ namespace webapi_test
 
             var comment = db.Comments.First();
 
+            var commentsPrev = await controller.GetComments(); 
+
+
             // Act
             var result = await controller.DeleteComment(comment.CommentId);
 
@@ -174,6 +188,18 @@ namespace webapi_test
 
             Assert.Equal(StatusCodes.Status200OK, response.StatusCode);
             Assert.IsType<Guid>(actual);
+
+            // Check state: comments - 1
+            var comments = await controller.GetComments(); 
+
+            var commentsResponse = Assert.IsType<ObjectResult>(comments.Result);          // casting result to ObjectResult
+            var commentsValue = Assert.IsAssignableFrom<IEnumerable<Comment>>(commentsResponse.Value);
+
+            var commentsPrevResponse = Assert.IsType<ObjectResult>(commentsPrev.Result);          // casting result to ObjectResult
+            var commentsPrevValue = Assert.IsAssignableFrom<IEnumerable<Comment>>(commentsPrevResponse.Value);
+
+            Assert.Equal(commentsPrevValue.Count() - 1, commentsValue.Count());
+
         }
 
 

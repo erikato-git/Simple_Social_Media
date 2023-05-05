@@ -9,5 +9,11 @@ namespace webapi.DTOs
         public string OldPassword { get; set; }
         [Required]
         public string NewPassword { get; set; }
+
+        public PasswordChangeDTO(string oldPassword, string newPassword)
+        {
+            OldPassword = oldPassword;
+            NewPassword = newPassword;
+        }
     }
 }

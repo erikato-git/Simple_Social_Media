@@ -7,5 +7,10 @@ namespace webapi.DTOs
     {
         [Required]
         public string Content { get; set; }
+        public CommentUpdateDTO(string content)
+        {
+            Content = content;
+        }
+
     }
 }

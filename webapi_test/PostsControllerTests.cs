@@ -51,8 +51,6 @@ namespace webapi_test
         }
 
 
-        // Needs HttpContex setup
-
         [Fact]
         public async Task UpdatePostOK()
         {
@@ -63,7 +61,7 @@ namespace webapi_test
 
             var user = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, ""+sessionUser.UserId)
+                new Claim(ClaimTypes.NameIdentifier, ""+sessionUser?.UserId)
             }));
             controller.HttpContext.User = user;
 
@@ -108,6 +106,9 @@ namespace webapi_test
                 Content = "New post"
             };
 
+            var postsPrev = await controller.GetPosts(); 
+
+
             // Act
             var result = await controller.CreatePost(postDto);
 
@@ -120,10 +121,21 @@ namespace webapi_test
             Assert.Equal(StatusCodes.Status200OK, response.StatusCode);
             Assert.IsType<Post>(actual);
             Assert.Equal(postDto.Content,actual.Content);
+
+            // Check state: users + 1
+            var posts = await controller.GetPosts(); 
+
+            var postsResponse = Assert.IsType<ObjectResult>(posts.Result);          // casting result to ObjectResult
+            var postsValue = Assert.IsAssignableFrom<IEnumerable<Post>>(postsResponse.Value);
+
+            var postsPrevResponse = Assert.IsType<ObjectResult>(postsPrev.Result);          // casting result to ObjectResult
+            var postsPrevValue = Assert.IsAssignableFrom<IEnumerable<Post>>(postsPrevResponse.Value);
+
+            Assert.Equal(postsPrevValue.Count() + 1, postsValue.Count());
+
         }
 
 
-        // TODO: Tjek at Posts er 1 mindre efter Delete
         [Fact]
         public async Task DeletePostOK()
         {
@@ -145,6 +157,9 @@ namespace webapi_test
 
             var postId = Guid.Parse("AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAA211");
 
+            var postsPrev = await controller.GetPosts(); 
+
+
             // Act
             var result = await controller.DeletePost(postId);
 
@@ -156,6 +171,19 @@ namespace webapi_test
 
             Assert.Equal(StatusCodes.Status200OK, response.StatusCode);
             Assert.IsType<Guid>(actual);
+
+
+            // Check state: users - 1
+            var posts = await controller.GetPosts(); 
+
+            var postsResponse = Assert.IsType<ObjectResult>(posts.Result);          // casting result to ObjectResult
+            var postsValue = Assert.IsAssignableFrom<IEnumerable<Post>>(postsResponse.Value);
+
+            var postsPrevResponse = Assert.IsType<ObjectResult>(postsPrev.Result);          // casting result to ObjectResult
+            var postsPrevValue = Assert.IsAssignableFrom<IEnumerable<Post>>(postsPrevResponse.Value);
+
+            Assert.Equal(postsPrevValue.Count() - 1, postsValue.Count());
+           
         }
 
 

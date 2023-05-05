@@ -10,5 +10,11 @@ namespace webapi.DTOs
         public string Full_Name { get; set; }
         public string? Description  { get; set; }
         public string? Profile_Picture { get; set; }
+
+        public UserUpdateDTO(string email, string full_name)
+        {
+            Email = email;
+            Full_Name = full_name;
+        }
     }
 }

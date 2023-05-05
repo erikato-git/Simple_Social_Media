@@ -54,7 +54,7 @@ namespace webapi_test
         }
 
 
-        // TODO: check length of users in db has increased by 1
+        // State
         [Fact]
         public async Task PostUserOK()
         {
@@ -67,6 +67,9 @@ namespace webapi_test
                 Full_Name = "new user",
             };
 
+            var usersPrev = await controller.GetUsers(); 
+
+
             // Act
             var result = await controller.PostUser(newUser);
 
@@ -78,6 +81,18 @@ namespace webapi_test
 
             Assert.Equal(StatusCodes.Status200OK, response.StatusCode);
             Assert.IsType<UserDTO>(actual);
+
+            // Check state: users + 1
+            var users = await controller.GetUsers(); 
+
+            var usersResponse = Assert.IsType<ObjectResult>(users.Result);          // casting result to ObjectResult
+            var usersValue = Assert.IsAssignableFrom<IEnumerable<UserDTO>>(usersResponse.Value);
+
+            var usersPrevResponse = Assert.IsType<ObjectResult>(usersPrev.Result);          // casting result to ObjectResult
+            var usersPrevValue = Assert.IsAssignableFrom<IEnumerable<UserDTO>>(usersPrevResponse.Value);
+
+            Assert.Equal(usersPrevValue.Count() + 1, usersValue.Count());
+
         }
 
 
@@ -136,9 +151,6 @@ namespace webapi_test
         }
 
 
-
-        // Needs HttpContex setup
-
         [Fact]
         public async Task LogInOK()
         {
@@ -184,8 +196,10 @@ namespace webapi_test
                 new Claim(ClaimTypes.NameIdentifier, ""+userToBeDeleted.UserId)
             }));
 
-            // makes sure that the user which is gonna be removed, is the person who is saved in HttpContext
             controller.HttpContext.User = user;
+
+            var usersPrev = await controller.GetUsers(); 
+
 
             // Act
             var result = await controller.DeleteUser(userToBeDeleted.UserId);
@@ -198,9 +212,21 @@ namespace webapi_test
 
             Assert.Equal(StatusCodes.Status200OK, response.StatusCode);
             Assert.IsType<Guid>(actual);
+
+            // Check state: users + 1
+            var users = await controller.GetUsers(); 
+
+            var usersResponse = Assert.IsType<ObjectResult>(users.Result);          // casting result to ObjectResult
+            var usersValue = Assert.IsAssignableFrom<IEnumerable<UserDTO>>(usersResponse.Value);
+
+            var usersPrevResponse = Assert.IsType<ObjectResult>(usersPrev.Result);          // casting result to ObjectResult
+            var usersPrevValue = Assert.IsAssignableFrom<IEnumerable<UserDTO>>(usersPrevResponse.Value);
+
+            Assert.Equal(usersPrevValue.Count() - 1, usersValue.Count());
+
         }
 
-        // ReturnLoggedInUserWhileSessionHasntExpired
+
         [Fact]
         public async Task ReturnLoggedInUserWhileSessionHasntExpiredOK()
         {
@@ -214,7 +240,6 @@ namespace webapi_test
                 new Claim(ClaimTypes.NameIdentifier, ""+sessionUser.UserId)
             }));
 
-            // makes sure that the user which is gonna be removed, is the person who is saved in HttpContext
             controller.HttpContext.User = user;
 
             // Act
