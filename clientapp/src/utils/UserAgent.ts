@@ -12,8 +12,8 @@ import { PasswordChangeDTO } from "./DTOs/PasswordChangeDTO";
 import { Comment } from "./models/Comment";
 
 
-axios.defaults.baseURL = 'http://localhost:5029';
-    
+axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
+
 axios.interceptors.response.use(
     (response) => {
       return response;
