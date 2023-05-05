@@ -125,7 +125,15 @@ else
         context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
         context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
         context.Response.Headers.Add("Referrer-Policy", "no-referrer");
-        context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' blob:; frame-src 'self'");
+        context.Response.Headers.Add(
+            "Content-Security-Policy-Report-Only", 
+            "default-src 'self'; " + 
+            "script-src 'self'; " +
+            "style-src 'self' ; " +
+            "font-src 'self' ; " +
+            "img-src 'self' ; " +
+            "frame-src 'self'; "
+            );
         
         await next();
     });
