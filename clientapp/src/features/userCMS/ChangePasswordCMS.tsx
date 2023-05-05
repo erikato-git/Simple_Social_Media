@@ -28,11 +28,11 @@ export default observer (function ChangePasswordCMS() {
         {
             RefreshUser()
             .then((e) => {
-                setCurrentUser(e)
+                if (process.env.NODE_ENV === 'development') { console.log(e); };
                 setLoading(false)
             })
             .catch((err) => {
-                console.log(err);
+                if (process.env.NODE_ENV === 'development') { console.log(err); };
                 setLoading(false)
             })
         }
@@ -49,11 +49,11 @@ export default observer (function ChangePasswordCMS() {
             const passwordChangeDTO: PasswordChangeDTO = { oldPassword: password, newPassword: newPassword };
             await UserRequests.changePassword(passwordChangeDTO)
                 .then((e) => {
-                    console.log(e);
+                    if (process.env.NODE_ENV === 'development') { console.log(e); };
                     alert("Your password has changed")
                 })
                 .catch((e) => {
-                    console.log(e);
+                    if (process.env.NODE_ENV === 'development') { console.log(e); };
                     alert("Something went wrong")
                 })
 

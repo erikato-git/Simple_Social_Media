@@ -130,8 +130,8 @@ else
             "Content-Security-Policy", 
             "default-src 'self'; " + 
             "script-src 'self'; " +
-            "style-src 'self' 'https://fonts.googleapis.com; " +
-            "font-src 'self' https://fonts.gstatic.com; " +
+            "style-src 'self' 'https://fonts.googleapis.com/; " +
+            "font-src 'self' https://fonts.gstatic.com/; " +
             "img-src 'self' data:; " +
             "frame-src 'self'; "
             );

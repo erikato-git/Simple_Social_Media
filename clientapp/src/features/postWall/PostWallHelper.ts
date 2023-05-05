@@ -36,11 +36,9 @@ export function RefreshPageAllPostsHelper({loading, setCurrentUser, setPosts, se
 
       const user = await UserRequests.getById(post.userId)
                           .then((e) => {
-                            // console.log(e)
                             return e
                           })
                           .catch((e) => {
-                            // console.log(e);
                             return null 
                           })
       
@@ -106,7 +104,7 @@ export function RefreshPageAllPostsHelper({loading, setCurrentUser, setPosts, se
               })
             })
             .catch((e) => {
-              console.log(e);
+              if (process.env.NODE_ENV === 'development') { console.log(e); };
             })
             .finally(() => {
               setLoading(false);
@@ -147,11 +145,11 @@ export function RefreshPageAllPostsHelper({loading, setCurrentUser, setPosts, se
 
     await PostRequests.create(postDto)
       .then((e) => {
-        // console.log(e);
+        if (process.env.NODE_ENV === 'development') { console.log(e); };
       })
       .catch((e) => {
-          // console.log(e);
-          alert("Something went wrong")
+        if (process.env.NODE_ENV === 'development') { console.log(e); };
+        alert("Something went wrong")
       })
 
 
@@ -190,10 +188,10 @@ export function RefreshPageAllPostsHelper({loading, setCurrentUser, setPosts, se
 
     await CommentRequests.create(commentDto)
     .then((e) => {
-      console.log(e);
+      if (process.env.NODE_ENV === 'development') { console.log(e); };
     })
     .catch((e) => {
-      console.log(e);
+      if (process.env.NODE_ENV === 'development') { console.log(e); };
       alert("Something went wrong")
     })
 
@@ -219,10 +217,10 @@ export function RefreshPageAllPostsHelper({loading, setCurrentUser, setPosts, se
 
     await CommentRequests.delete(commentString)
     .then((e) => {
-      console.log(e);
+      if (process.env.NODE_ENV === 'development') { console.log(e); };
     })
     .catch((e) => {
-      console.log(e);
+      if (process.env.NODE_ENV === 'development') { console.log(e); };
       alert("Something went wrong")
     })
 

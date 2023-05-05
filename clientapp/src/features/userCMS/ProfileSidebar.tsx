@@ -28,11 +28,11 @@ export default observer (function ProfileSidebar() {
       })
 
       .catch((e) => {
-        console.log(e);
+        if (process.env.NODE_ENV === 'development') { console.log(e); };
       })
     })
     .catch((e) => {
-      console.log(e);
+      if (process.env.NODE_ENV === 'development') { console.log(e); };
     })
         
   }

@@ -44,10 +44,10 @@ export default observer (function PostUpdateModal({setLoading} : Props) {
   
         await PostRequests.update(postStore.selectedPost.postId,postUpdateDto)
         .then(e => {
-          console.log("Succes");
+          if (process.env.NODE_ENV === 'development') { console.log(e); };
         })
         .catch(e => {
-          console.log("Failure");
+          if (process.env.NODE_ENV === 'development') { console.log(e); };
         })
 
         postStore.selectedPost = undefined

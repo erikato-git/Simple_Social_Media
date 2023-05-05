@@ -63,14 +63,14 @@ export default observer(function CreateAccount() {
 
         const emailFree = await UserRequests.checkEmailIsFree(data.email)
                                 .then((e) => {
-                                  console.log(e);
+                                  if (process.env.NODE_ENV === 'development') { console.log(e); };
                                   return e.data
                                 })
         
         if(emailFree){
           await UserRequests.create(data)
           .then((e) => {
-            console.log(e);
+            if (process.env.NODE_ENV === 'development') { console.log(e); };
             alert("User is created succesfully")
             
             const loginDto: LoginDTO = { email: data.email, password: data.password }

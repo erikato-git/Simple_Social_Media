@@ -86,11 +86,11 @@ export default observer (function PostWall() {
     async function SletPost(post: Post){
       await PostRequests.delete(post.postId)
       .then((e) => {
-        console.log(e);
+        if (process.env.NODE_ENV === 'development') { console.log(e); };
         })
         .catch((e) => {
-            console.log(e);
-            alert("Something went wrong")
+          if (process.env.NODE_ENV === 'development') { console.log(e); };
+          alert("Something went wrong")
         })
 
 
@@ -170,7 +170,7 @@ export default observer (function PostWall() {
                         </nav>
                       </div>
 
-                      <div className='w-3/5 pr-10 pt-2 flex flex-col text-center mx-auto'>
+                      <div className='w-3/5 pr-10 pt- flex flex-col text-center mx-auto'>
 
                         {/* Post-form */}
                           <div className='flex flex-row mx-auto p-5 bg-white space-x-3 border rounded sm:w-full md:w-auto'>
@@ -242,8 +242,8 @@ export default observer (function PostWall() {
                                         </div>
                                       </div>
                                       <img src={post.image} alt="" className='mx-auto'/>
-                                      <p className='py-4 pb-5'>{post.content}</p>
-                                      <div className='py-8 border-b border-gray w-full'></div>
+                                      <p className='py-5'>{post.content}</p>
+                                      <div className='py-4 border-b border-gray w-full'></div>
 
                                       <div className='rounded-md shadow-md bg-gray-100 p-5 space-y-3'>
                                         {/* <form onSubmit={CreateComment(e,post.postId)}> */}

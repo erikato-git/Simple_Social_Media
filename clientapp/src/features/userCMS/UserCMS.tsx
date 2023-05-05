@@ -32,7 +32,7 @@ export default observer (function UserCMS() {
                 setLoading(false)
             })
             .catch((err) => {
-                console.log(err);
+                if (process.env.NODE_ENV === 'development') { console.log(err); };
                 setLoading(false)
             })
         }
@@ -85,11 +85,11 @@ export default observer (function UserCMS() {
 
             await UserRequests.update(currentUser.userId,userDto)
                 .then((e) => {
-                    console.log(e);
+                    if (process.env.NODE_ENV === 'development') { console.log(e); };
                     alert("Your profile information has been updated")
                 })
                 .catch((e) => {
-                    console.log(e);
+                    if (process.env.NODE_ENV === 'development') { console.log(e); };
                     alert("Something went wrong")
                 })
 
