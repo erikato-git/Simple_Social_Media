@@ -164,7 +164,7 @@ The core technologies used to build the application:
 
   <br>
   
-- DTOs used everywhere so vulnurable data won't be exposed. Model classes and DTOs change to each by Automapper during the application.  
+- DTOs are used everywhere so vulnurable data won't be exposed. Model classes and DTOs change to each other by Automapper during processing of data.  
 
   [UserRepository.cs]
 
