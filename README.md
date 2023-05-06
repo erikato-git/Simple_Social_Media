@@ -1,6 +1,15 @@
 [![Continuous Integration (not deployment)](https://github.com/erikato-git/webapi/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/erikato-git/webapi/actions/workflows/ci-cd.yml)
 
-# Webapi - Template for projects build in ASP.NET Core and React (TypeScript)
+# Simple Social Media app - ASP.NET Core, React(TypeScript) & Tailwind
+
+### Website:
+https://simplesocialmedia.herokuapp.com/
+<br><br>
+Create another account or use the test-account below:
+- Email: new@mail.com
+- Password: 123
+
+<br>
 
 ### Run application in VS Code:
 #### Run in development mode:
@@ -25,8 +34,6 @@ npm start
 ```
 Open up a browser and navigate to url: http://localhost:3000/
 
-<br>
-
 #### Run in production mode with docker-compose:
 Navigate to same folder as docker-compose.yml in terminal (the root of the project) and type:
 ```
@@ -36,31 +43,306 @@ Open up browser and navigate to url: http://localhost:5029/
 
 <br>
 
-### Template overview:
-Server:
-- Simple example of interactions between Repository, Interface and Controller.
-- DataContext-class with init data which is configured with dependency injection in Program.cs.
+### Technologies:
+The core technologies used to build the application:
+- ASP.NET Core
+- React (TypeScript)
+- Tailwind
+
+<br>
+
+### Solutions:
+#### Server:
 - AddDbContext configured in three different modes in postgres with dependency injection in Program.cs (can easily be changed to mssql): 
   - 1. Development mode: Configured to one connection-string used for developement.
   - 2. Production mode: Configured to another connection-string used for production.
   - 3. Deployment mode: Configured to antoher connection-string used for deployment for eg. Heroku and flyio.
-- Cors-policy: Server is configured to listen to client on http://localhost:3000
-- Security is configured for http-header-requests and returns an 'A' on https://securityheaders.com/
-- FallbackController configures the default-landing page when running the application to the index.html of the build-version of client which is to be find in 'wwwwroot'.
-- Continuous-Integration: configured to notice if errors occur during build and tests when pushing to main branch on github. 
+  
+  [Program.cs]
 
-Client:
-- Environment variables: different environment variables are configured to the build process of the client. For deployment 'http://localhost:5165/' in the url needs to be removed when client receives requests from the server.
-- Builds: Besides environment variables the different build modes are configured to make a production build of the client-app deployed on backend in folder 'wwwroot' and the deployment mode is sat to not generate source map which will expose client source code in the browser. The two build modes can be activated in the terminal by typing ```npm run build:dev``` or ```npm run build:deploy```  
-- Simple example of receiving a request from the server and displaying the data from database in the console of the browser (based on the running environment)
+  ```cs
+      builder.Services.AddDbContext<DataContext>(options =>
+      {
+          var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+          string connStr;
 
-Tests:
-- Simple test on a server-method call. Checking for status-code and data-type.
-- Fake database based on UseInMemoryDatabase and the DataContext-class on the server.
-- Fake Controller-class using the actual repository-class on the server provided with the fake database for testing. Automapper can be configured (optional). 
+          // for 'dotnet run'
+          if (env == "Development")
+          {
+              connStr = builder.Configuration["ConnectionStrings:DevelopmentConnection"];
+              options.UseNpgsql(connStr);
+          }
+          // for 'docker-compose' and deploy to Heroku
+          else
+          {
+              var docker = Environment.GetEnvironmentVariable("Docker_Env");
+
+              if( docker == "Docker" )
+              {
+                  options.UseNpgsql(builder.Configuration["ConnectionStrings:ProductionConnection"]);
+              }
+              // Heroku
+              else
+              {
+                  // Use connection string provided at runtime by Heroku.
+                  var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+                  if(!string.IsNullOrEmpty(connUrl))
+                  {
+                      // Parse connection URL to connection string for Npgsql
+                      connUrl = connUrl.Replace("postgres://", string.Empty);
+                      var pgUserPass = connUrl.Split("@")[0];
+                      var pgHostPortDb = connUrl.Split("@")[1];
+                      var pgHostPort = pgHostPortDb.Split("/")[0];
+                      var pgDb = pgHostPortDb.Split("/")[1];
+                      var pgUser = pgUserPass.Split(":")[0];
+                      var pgPass = pgUserPass.Split(":")[1];
+                      var pgHost = pgHostPort.Split(":")[0];
+                      var pgPort = pgHostPort.Split(":")[1];
+
+                      connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb};";
+
+                      options.UseNpgsql(connStr);
+                  }
+              }
+          }
+      });
+  ```
+  
+  <br>
+  
+- Authentication with cookies. When a user logs in the cookie is generated and based on the user's id. The id is used to validate if the user has authorization to different endpoints:
+
+  [UsersController.cs]
+
+  ```cs
+      [HttpPost("/login")]
+      [AllowAnonymous]
+      public async Task<ActionResult> LogIn(LoginDTO loginDto)
+      {
+          try
+          {
+              if (!ModelState.IsValid)
+              {
+                  return Redirect("/login");
+              }
+              var found = await _userRepository.FindUserForLogin(loginDto);
+
+              if (found == null)
+              {
+                  return NotFound();
+              }
+
+              var claims = new List<Claim>
+              {
+                  new Claim(ClaimTypes.Name, found.Full_Name),
+                  new Claim(ClaimTypes.NameIdentifier, found.UserId.ToString()),
+                  new Claim(ClaimTypes.Role, "User")
+              };
+
+              var ci = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+              var cp = new ClaimsPrincipal(ci);
+
+              var properties = new AuthenticationProperties()
+              {
+                  AllowRefresh = true,
+                  IsPersistent = true
+              };
+
+              await HttpContext.SignInAsync(cp, properties);
+
+              return StatusCode(200,found);
+
+          }
+          catch (Exception ex)
+          {
+              return BadRequest(ex.Message);
+          }
+      }
+
+  ```
+
+  <br>
+  
+- DTOs used everywhere so vulnurable data won't be exposed. Model classes and DTOs change to each by Automapper during the application.  
+
+  [UserRepository.cs]
+
+  ```cs
+        public async Task<UserDTO> PostUser(UserCreateDTO userDto)
+        {
+            if(userDto == null)
+            {
+                throw new ArgumentNullException("userDto is null");
+            }
+
+            Random rnd = new();
+            int salt = rnd.Next();
+
+            userDto.Password = HashPassword(userDto.Password,salt.ToString());
+            var user = _mapper.Map<User>(userDto);
+
+            user.Salt = salt;
+            user.Description = "";
+
+            await _context.Users.AddAsync(user);
+            _context.SaveChanges();
+
+            var dto = _mapper.Map<UserDTO>(user);
+
+            return dto;
+        }
+
+        private string HashPassword(string password, string salt)
+        {
+            var passwordWithSalt = password + salt;
+
+            using var sha = SHA512.Create();
+
+            var bytes = Encoding.Default.GetBytes(passwordWithSalt);
+
+            var hashed = sha.ComputeHash(bytes);
+
+            return Convert.ToBase64String(hashed);
+        }
+
+  ```
 
 <br>
 
+#### Client:
+- All requests on client are handled with axios. The interceptors are configured to return response and use credentials. Generic requests based on the response are used for most of the client's requests:
+
+  [UserAgent.ts]
+
+  ```ts
+        axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
+
+        axios.interceptors.response.use(
+            (response) => {
+              return response;
+            },
+            (error) => {
+              return Promise.reject(error);
+            }
+          );
+
+        axios.interceptors.request.use((config) => {
+          config.withCredentials = true;
+          return config;
+        });
+
+
+        const responseBody = <T> (response: AxiosResponse<T>) => response.data;
+
+        // Generic requests from our base-url, we can later attach the particular API-part
+        const requests = {
+            get: <T> (url: string) => axios.get<T>(url).then(responseBody),
+            post: <T> (url: string, body: {}) => axios.post<T>(url, body).then(responseBody),
+            put: <T> (url: string, body: {}) => axios.put<T>(url, body).then(responseBody),
+            delete: <T> (url: string) => axios.delete<T>(url).then(responseBody)
+        }
+  ```
+
+<br>
+
+#### Tests:
+- Controller classes in the test-project are configured with a fake database which uses UseInMemoryDatabase and are configured so ClaimsPrincipal can be attached in 'User' in HttpContext:
+
+  [UsersControllerMoq.cs]
+
+  ```cs
+    public class UsersControllerMoq
+    {
+        public async Task<UsersController> Instance()
+        {
+            var fakeDb = await new DbContextMoq().Instance();
+
+            // --- Automapper ---
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MapperService());   
+            });
+            var mapper = config.CreateMapper();
+
+            var userRepository = new UserRepository(fakeDb,mapper);
+
+            var authServiceMock = new Mock<IAuthenticationService>();
+            authServiceMock
+                .Setup(_ => _.SignInAsync(It.IsAny<HttpContext>(), It.IsAny<string>(), It.IsAny<ClaimsPrincipal>(), It.IsAny<AuthenticationProperties>()))
+                .Returns(Task.FromResult((object)null));
+
+            var services = new ServiceCollection();
+            services.AddSingleton<IAuthenticationService>(authServiceMock.Object);
+
+            var controller = new UsersController(userRepository)
+            {
+                ControllerContext = new ControllerContext {
+                    HttpContext = new DefaultHttpContext {
+                        RequestServices = services.BuildServiceProvider()
+                    }
+                }
+            };
+            
+            return controller;
+        }
+    }
+  ```
+  
+  [UsersControllerTests.cs]
+
+  ```cs
+    [Fact]
+    public async Task DeleteUserOK()
+    {
+        // Arrange
+        var controller = await new UsersControllerMoq().Instance();
+        var db = await new DbContextMoq().Instance();
+        var userToBeDeleted = db.Users.First();
+
+        var user = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
+        {
+            new Claim(ClaimTypes.NameIdentifier, ""+userToBeDeleted.UserId)
+        }));
+
+        controller.HttpContext.User = user;
+
+        var usersPrev = await controller.GetUsers(); 
+
+
+        // Act
+        var result = await controller.DeleteUser(userToBeDeleted.UserId);
+
+        // Assert
+        Assert.NotNull(result);
+
+        var response = Assert.IsType<ObjectResult>(result);          // casting result to ObjectResult
+        var actual = Assert.IsAssignableFrom<Guid>(response.Value);
+
+        Assert.Equal(StatusCodes.Status200OK, response.StatusCode);
+        Assert.IsType<Guid>(actual);
+
+        // Check state: users - 1
+        var users = await controller.GetUsers(); 
+
+        var usersResponse = Assert.IsType<ObjectResult>(users.Result);          // casting result to ObjectResult
+        var usersValue = Assert.IsAssignableFrom<IEnumerable<UserDTO>>(usersResponse.Value);
+
+        var usersPrevResponse = Assert.IsType<ObjectResult>(usersPrev.Result);          // casting result to ObjectResult
+        var usersPrevValue = Assert.IsAssignableFrom<IEnumerable<UserDTO>>(usersPrevResponse.Value);
+
+        Assert.Equal(usersPrevValue.Count() - 1, usersValue.Count());
+
+    }
+  ```
+
+
+<br>
+
+### Version 2.0:
+- CQRS instead of Repositories
+- Save images in Cloudinary not postgres
+- Chage React front-end with Angular
 
 
 
