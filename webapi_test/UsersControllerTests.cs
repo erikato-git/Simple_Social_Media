@@ -211,7 +211,7 @@ namespace webapi_test
             Assert.Equal(StatusCodes.Status200OK, response.StatusCode);
             Assert.IsType<Guid>(actual);
 
-            // Check state: users + 1
+            // Check state: users - 1
             var users = await controller.GetUsers(); 
 
             var usersResponse = Assert.IsType<ObjectResult>(users.Result);          // casting result to ObjectResult

@@ -14,9 +14,6 @@ export const routes: RouteObject[] = [
         
         children: [
             {path: '/', element: <LoginOrRegister/>},
-            // {path: '/', element: <CreateAccount/>},
-            // {path: '/', element: <PostWall/>},
-            // {path: '/', element: <UserCMS/>},
             {path: '/LoginOrRegister', element: <LoginOrRegister/>},
             {path: '/CreateAccount', element: <CreateAccount/>},
             {path: '/Home', element: <PostWall/>},

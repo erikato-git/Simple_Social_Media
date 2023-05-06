@@ -105,9 +105,6 @@ export default observer (function PostWall() {
     }
 
 
-    // Comments: Create, Read, Update, Delete
-
-
     // Handles comment-input-form so it wont duplicate on the other post-objects
     const [fieldValues, setFieldValues] = useState<{ [key: string]: string }>({});
 
