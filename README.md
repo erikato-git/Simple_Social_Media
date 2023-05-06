@@ -339,7 +339,7 @@ The core technologies used to build the application:
 
 <br>
 
-### Version 2.0:
+### Version 2.0: (Pending)
 - CQRS instead of Repositories
 - Save images in Cloudinary not postgres
 - Chage React front-end with Angular
