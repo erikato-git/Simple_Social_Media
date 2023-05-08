@@ -246,6 +246,47 @@ The core technologies used to build the application:
 
 <br>
 
+- Every time the post-wall for each user is reloaded the client makes a request to get all posts which have been created, then attach the user for each post who has created it, then attach the comments which belongs to each post, and then attach the user who belongs to each comment:
+
+  [PostWallHelper.ts]
+
+  ```ts
+    if (loading) {
+      RefreshUser()
+
+        .then((e) => {
+          setCurrentUser(e);
+          FetchAllPosts()
+
+            .then((e) => {
+              Promise.all(e.map(post => AttachUserToPost(post)))
+
+                .then((e) => {
+                  
+                  Promise.all(e.map(post => FetchCommentsToPost(post)))
+                  .then((e) => {
+                    
+                    Promise.all(e.map(post => FetchUserToComments(post)))
+                    .then((e) => {
+
+                      const filteredPosts: Post[] = e.filter((post): post is Post => post !== undefined);
+                      setPosts(filteredPosts)
+                    })
+                  })
+                })
+              })
+            })
+            .catch((e) => {
+              if (process.env.NODE_ENV === 'development') { console.log(e); };
+            })
+            .finally(() => {
+              setLoading(false);
+            });
+          }
+  ```
+
+<br>
+
 #### Tests:
 - Controller classes in the test-project are configured with a fake database which uses UseInMemoryDatabase and are configured so ClaimsPrincipal can be attached in 'User' in HttpContext:
 
