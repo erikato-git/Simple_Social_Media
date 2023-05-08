@@ -384,6 +384,7 @@ The core technologies used to build the application:
 - CQRS instead of Repositories
 - Save images in Cloudinary not postgres
 - Chage React front-end with Angular
+- ASP.NET Core Identity i stedet for User-class
 
 
 
